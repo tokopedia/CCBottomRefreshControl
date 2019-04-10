@@ -58,9 +58,9 @@ static char kTriggerVerticalOffsetKey;
 
 @implementation UIRefreshControl (BottomRefreshControl)
 
-+ (void)load {
+__attribute__((constructor)) static void initialize_UIRefreshControl(void) {
     
-    [self brc_swizzleMethod:@selector(endRefreshing) withMethod:@selector(brc_endRefreshing)];
+    [[UIRefreshControl class] brc_swizzleMethod:@selector(endRefreshing) withMethod:@selector(brc_endRefreshing)];
 }
 
 
@@ -133,12 +133,12 @@ const CGFloat kMinRefershTime = 0.5;
 
 @implementation UIScrollView (BottomRefreshControl)
 
-+ (void)load {
+__attribute__((constructor)) static void initialize_UIScrollView(void) {
     
-    [self brc_swizzleMethod:@selector(didMoveToSuperview) withMethod:@selector(brc_didMoveToSuperview)];
-    [self brc_swizzleMethod:@selector(setContentInset:) withMethod:@selector(brc_setContentInset:)];
-    [self brc_swizzleMethod:@selector(contentInset) withMethod:@selector(brc_contentInset)];
-    [self brc_swizzleMethod:@selector(setContentOffset:) withMethod:@selector(brc_setContentOffset:)];
+    [[UIScrollView class] brc_swizzleMethod:@selector(didMoveToSuperview) withMethod:@selector(brc_didMoveToSuperview)];
+    [[UIScrollView class] brc_swizzleMethod:@selector(setContentInset:) withMethod:@selector(brc_setContentInset:)];
+    [[UIScrollView class] brc_swizzleMethod:@selector(contentInset) withMethod:@selector(brc_contentInset)];
+    [[UIScrollView class] brc_swizzleMethod:@selector(setContentOffset:) withMethod:@selector(brc_setContentOffset:)];
 }
 
 - (void)brc_didMoveToSuperview {
@@ -392,9 +392,9 @@ const CGFloat kMinRefershTime = 0.5;
 
 @implementation UITableView (BottomRefreshControl)
 
-+ (void)load {
+__attribute__((constructor)) static void initialize_UITableView(void) {
     
-    [self brc_swizzleMethod:@selector(reloadData) withMethod:@selector(brc_reloadData)];
+    [[UITableView class] brc_swizzleMethod:@selector(reloadData) withMethod:@selector(brc_reloadData)];
 }
 
 - (void)brc_reloadData {
@@ -415,9 +415,9 @@ const CGFloat kMinRefershTime = 0.5;
 
 @implementation UICollectionView (BottomRefreshControl)
 
-+ (void)load {
+__attribute__((constructor)) static void initialize_UICollectionView(void) {
     
-    [self brc_swizzleMethod:@selector(reloadData) withMethod:@selector(brc_reloadData)];
+    [[UICollectionView class] brc_swizzleMethod:@selector(reloadData) withMethod:@selector(brc_reloadData)];
 }
 
 - (void)brc_reloadData {
